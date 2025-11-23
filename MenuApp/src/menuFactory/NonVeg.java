@@ -1,14 +1,16 @@
 package menuFactory;
+import DessertFactory.DessertFactory;
 import mainDishFactory.MainDishFactory;
 import menuItems.Fries;
-import menuItems.FruitSalad;
 import menuItems.MenuItem;
 
 public class NonVeg extends MenuFactory{
     private   MainDishFactory mainDish;
+    private DessertFactory dessert;
 
-    public NonVeg(MainDishFactory mainDishFactory) {
+    public NonVeg(MainDishFactory mainDishFactory ,  DessertFactory dessertFactory) {
         this.mainDish = mainDishFactory;
+        this.dessert = dessertFactory;
     }
 
     @Override
@@ -24,7 +26,9 @@ public class NonVeg extends MenuFactory{
     }
 
     @Override
-    public MenuItem createDessert() {
-        return new FruitSalad();
+    public MenuItem createDessert(String type) {
+        if(type == null) return null;
+        MenuItem mi = dessert.createDessert(type);
+        return mi != null ? mi : null;
     }
 }

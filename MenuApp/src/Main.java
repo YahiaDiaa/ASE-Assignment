@@ -1,3 +1,4 @@
+import DessertFactory.*;
 import decorator.*;
 import Discount.*;
 import mainDishFactory.*;
@@ -113,27 +114,26 @@ public class Main {
         
         int choice = getIntInput(1, 3);
         MainDishFactory mainDishFactory = new simpleDish();
-        
+        DessertFactory dessertFactory = new simpleDessert();
+
         MenuFactory factory = null;
+
         switch (choice) {
             case 1:
-                factory = new KidsMenu(mainDishFactory);
-                System.out.println("=> Selected: Kids Menu");
+                factory = new KidsMenu(mainDishFactory, dessertFactory);
                 break;
             case 2:
-                factory = new VegMenu(mainDishFactory);
-                System.out.println("=> Selected: Vegetarian Menu");
+                factory = new VegMenu(mainDishFactory, dessertFactory);
                 break;
             case 3:
-                factory = new NonVeg(mainDishFactory);
-                System.out.println("=> Selected: Non-Vegetarian Menu");
+                factory = new NonVeg(mainDishFactory, dessertFactory);
                 break;
         }
-        
+
         // Use MenuManager to display the menu 
         System.out.println("\nHere's what we're serving today:");
         MenuManager menuManager = new MenuManager(factory);
-        menuManager.displayFullMenu("chicken");
+        menuManager.displayFullMenu("pasta" , "ice cream");
         
         return factory;
     }
@@ -157,7 +157,7 @@ public class Main {
         
         // Display and select main dish
         System.out.println("\n--- MAIN DISH ---");
-        String mainDishType = chooseMainDishType();
+        String mainDishType = chooseMainDishType(menuFactory);
         MenuItem mainDish = menuManager.getMainDish(mainDishType);
         if (mainDish != null) {
             System.out.println("Selected: " + mainDish.getDescription() + " - $" + 
@@ -167,30 +167,71 @@ public class Main {
         } else {
             System.out.println("Sorry, this main dish is not available.");
         }
-        
-        // Display and select dessert
+
         System.out.println("\n--- DESSERT ---");
-        MenuItem dessert = menuManager.getDessert();
-        System.out.println("Available: " + dessert.getDescription() + " - $" + 
-                          String.format("%.2f", dessert.getCost()));
-        System.out.print("Add to order? (y/n): ");
-        if (getYesNo()) {
-            order.addItem(dessert);
-            System.out.println("=> Added: " + dessert.getDescription());
+        System.out.println("Choose Dessert:");
+        System.out.println("1. Ice Cream");
+        System.out.println("2. Fruit Salad");
+        System.out.println("3. Skip Dessert");
+
+        System.out.print("Enter your choice (1-3): ");
+        int dessertChoice = getIntInput(1, 3);
+
+        MenuItem dessert = null;
+
+        switch (dessertChoice) {
+            case 1:
+                dessert = menuManager.getDessert("icecream");
+                break;
+            case 2:
+                dessert = menuManager.getDessert("fruitsalad");
+                break;
+            case 3:
+                System.out.println("=> Dessert skipped.");
+                break;
         }
+
+        if (dessert != null) {
+            System.out.println("Selected: " + dessert.getDescription() + " - $" +
+                    String.format("%.2f", dessert.getCost()));
+            order.addItem(dessert);
+            System.out.println("=> Added to order");
+        }
+
     }
-    
-    private static String chooseMainDishType() {
+
+    private static String chooseMainDishType(MenuFactory menuFactory) {
+
+        if (menuFactory instanceof VegMenu) {
+            System.out.println("Select Main Dish Type:");
+            System.out.println("Vegetarian menu offers: Pasta only");
+            System.out.print("1- pasta ");
+
+            int input  = getIntInput(1, 1);
+            while (input != 1) {
+                System.out.print("Please enter valid choice: ");
+                input = Integer.parseInt(scanner.nextLine().trim().toLowerCase());
+            }
+
+         return "Pasta";
+        }
+
+
         System.out.println("Select Main Dish Type:");
         System.out.println("1. Chicken");
         System.out.println("2. Beef");
-        System.out.print("Enter your choice (1-2): ");
-        
-        int choice = getIntInput(1, 2);
-        String type = (choice == 1) ? "chicken" : "beef";
-        return type;
+        System.out.println("3. Pasta");
+        System.out.print("Enter your choice (1-3): ");
+
+        int choice = getIntInput(1, 3);
+
+        switch (choice) {
+            case 1: return "chicken";
+            case 2: return "beef";
+            case 3: return "pasta";
+        }
+        return "pasta";
     }
-    
     private static void applyCustomizations(Order order) {
         if (order.getItems().isEmpty()) {
             return;

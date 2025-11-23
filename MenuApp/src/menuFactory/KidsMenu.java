@@ -1,13 +1,17 @@
 package menuFactory;
 
+import DessertFactory.DessertFactory;
 import mainDishFactory.MainDishFactory;
 import menuItems.Fries;
-import menuItems.IceCream;
 import menuItems.MenuItem;
 
 public class KidsMenu extends MenuFactory{
     private   MainDishFactory mainDish;
-    public KidsMenu(MainDishFactory mainDishFactory) { this.mainDish = mainDishFactory; };
+    private DessertFactory dessert;
+    public KidsMenu(MainDishFactory mainDishFactory , DessertFactory  dessertFactory) {
+        this.mainDish = mainDishFactory;
+        this.dessert = dessertFactory;
+    };
 
     @Override
     public MenuItem createAppetizer() {
@@ -21,8 +25,10 @@ public class KidsMenu extends MenuFactory{
     }
 
     @Override
-    public MenuItem createDessert() {
-        return new IceCream();
+    public MenuItem createDessert(String type) {
+        if(type == null) return null;
+        MenuItem mi = dessert.createDessert(type);
+        return mi != null ? mi : null;
     }
 
 }
