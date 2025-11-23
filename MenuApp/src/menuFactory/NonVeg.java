@@ -6,6 +6,11 @@ import menuItems.MenuItem;
 
 public class NonVeg extends MenuFactory{
     private   MainDishFactory mainDish;
+
+    public NonVeg(MainDishFactory mainDishFactory) {
+        this.mainDish = mainDishFactory;
+    }
+
     @Override
     public MenuItem createAppetizer() {
         return new Fries();

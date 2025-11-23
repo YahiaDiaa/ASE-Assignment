@@ -19,7 +19,7 @@ public class VegMenu extends MenuFactory{
     @Override
     public MenuItem createMainDish(String type) {
         MenuItem mi = mainDish.createDish(type);
-        return mi != null ? new Fries() : null;
+        return mi != null ? mi : null;
     }
 
     @Override

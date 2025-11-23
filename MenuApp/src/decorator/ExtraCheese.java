@@ -10,7 +10,7 @@ public class ExtraCheese extends addOnDecorator {
 
     @Override
     public String getDescription(){
-        return menuItem.getDescription() + " + Extraa Cheese";
+        return menuItem.getDescription() + " + Extra Cheese";
     }
 
     @Override

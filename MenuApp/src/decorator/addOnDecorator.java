@@ -3,7 +3,7 @@ import menuItems.MenuItem;
 
 public abstract class addOnDecorator implements MenuItem {
     protected MenuItem menuItem;
-    public addOnDecorator(MenuItem menuitem){
+    public addOnDecorator(MenuItem menuItem){
         this.menuItem = menuItem;
     }
 
