@@ -361,7 +361,7 @@ Depend on abstractions, not concretions:
 ## 👥 Contributors
 
 - **Yahia Diaa** - [@YahiaDiaa](https://github.com/YahiaDiaa)
-- **Maurice** - [@Y-mauriceokay](https://github.com/Y-mauriceokay)
+- **Maurice** - [@Y-maurice](https://github.com/Y-maurice)
 
 **Course:** Advanced Software Engineering 2025  
 **Institution:** Cairo University - Faculty of Computers and Artificial Intelligence
