@@ -246,8 +246,8 @@ public class Main {
     private static double applyDiscount(Order order, double subtotal) {
         System.out.println("\n=== APPLY DISCOUNT ===");
         System.out.println("Available Discounts:");
-        System.out.println("1. Chicken Discount (15% off)");
-        System.out.println("2. Pizza Discount (10% off)");
+        System.out.println("1. First Time Discount  (15% off for new customers)");
+        System.out.println("2. Happy Hour Discount  (10% off)");
         System.out.println("3. No Discount");
         System.out.print("Enter your choice (1-3): ");
         
@@ -263,11 +263,11 @@ public class Main {
         
         switch (choice) {
             case 1:
-                discountStrategy = new ChickenDiscount();
+                discountStrategy = new FirstTimeDiscount();
                 discountType = "Chicken (15% off)";
                 break;
             case 2:
-                discountStrategy = new PizzaDiscount();
+                discountStrategy = new HappyHourDiscount();
                 discountType = "Pizza (10% off)";
                 break;
         }
