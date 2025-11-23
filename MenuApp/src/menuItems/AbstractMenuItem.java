@@ -9,7 +9,7 @@ public class AbstractMenuItem implements MenuItem {
     }
 
     @Override
-    public double getCoast() {
+    public double getCost() {
         return price;
     }
 }
